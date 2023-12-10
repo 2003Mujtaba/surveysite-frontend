@@ -1,0 +1,31 @@
+<div>
+    <h2>Survey List</h2>
+    <div *ngIf="surveys.length > 0; else notfound">
+        <ul class="survey-list">
+            <li class="survey-item" *ngFor="let survey of surveys; let i = index">
+                <a href="/surveys/<%= survey._id %>">
+                    {{survey.title}}
+                </a>
+                <div *ngIf="flag">
+                    <form style="display: inline;" class="button-inline-edit">
+                        <button type="submit" class="button-inline" (click)="onDelete(survey._id, i)">Delete</button>
+                    </form>
+                    <form style="display: inline;">
+                        <button type="submit" class="button-inline" (click)="onEdit(survey._id)">Edit</button>
+                    </form>
+
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+    <ng-template #notfound>
+        <p>No surveys found.</p>
+    </ng-template>
+    <div class="create-curvey-link-div">
+        <a href="/surveys/new" class="create-survey-link">Create New Survey</a>
+    </div>
+
+
+</div>

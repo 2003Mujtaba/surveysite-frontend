@@ -1,0 +1,32 @@
+<div class="form-container">
+    <h2 *ngIf="!flag">Create New Survey</h2>
+    <h2 *ngIf="flag">Edit Survey</h2>
+
+    <h3 class="error-text "*ngIf="this.flagValidate">Please input all the informations</h3>
+    <form>
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" [(ngModel)]="title" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" [(ngModel)]="description" required></textarea>
+        </div>
+        <div id="questions-container" *ngFor="let question of questions; let i =index">
+            <label for="questionText">Question:</label>
+            <input type="text" name="question{{i}}" [(ngModel)]="question.questionText" required>
+            <div class="options-container">
+                <label>Options:</label>
+                <input type="text" name="question{{i}}option{{j}}"
+                    *ngFor="let option of question.options; let j = index" [(ngModel)]="question.options[j].optionText"
+                    required>
+                <button type="button" class="add-option" (click)="onAddOption(i)">Add Option</button>
+                <button *ngIf="flag" type="button" class="delete-question" (click)="onDeleteQuestion(i)">Delete
+                    Question</button>
+            </div>
+        </div>
+        <button type="button" id="add-question" class="add-question" (click)="onAddQuestion()">Add Question</button>
+        <button *ngIf="!flag" type="submit" (click)="onCreateSurvey()">Create Survey</button>
+        <button *ngIf="flag" type="submit" (click)="onUpdateSurvey()">Update Survey</button>
+    </form>
+</div>
